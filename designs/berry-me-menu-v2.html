@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="hz:slide-selector" content=".menu">
+  <meta name="hz:canvas-width" content="794">
+  <meta name="hz:canvas-height" content="1123">
+  <title>Berry Me Menu v2</title>
+  <link rel="stylesheet" href="https://use.typekit.net/roo4vnk.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #1A0A12;
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .menu {
+      position: relative;
+      width: 794px;
+      height: 1123px;
+      overflow: hidden;
+      font-family: 'cairo', sans-serif;
+      /* Layered radial background */
+      background:
+        radial-gradient(ellipse 700px 560px at 85% -5%, rgba(210,18,50,0.22) 0%, transparent 60%),
+        radial-gradient(ellipse 450px 380px at 10% 100%, rgba(180,12,38,0.14) 0%, transparent 65%),
+        #0B0108;
+    }
+
+    /* ── HEADER ───────────────────────────────────── */
+    .hdr {
+      padding: 42px 52px 30px;
+      text-align: center;
+    }
+
+    .hdr-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(220,30,60,0.38);
+      background: rgba(220,30,60,0.10);
+      padding: 5px 20px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      font-family: 'source-sans-3', sans-serif;
+      font-size: 9.5px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #FF8099;
+    }
+
+    .pill-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: #E81535;
+    }
+
+    .brand {
+      font-size: 86px;
+      font-weight: 700;
+      letter-spacing: -4px;
+      line-height: 0.88;
+      color: #FFFFFF;
+      direction: ltr;
+      display: block;
+    }
+
+    .brand-red { color: #E81535; }
+
+    .brand-sub {
+      font-size: 15px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.38);
+      letter-spacing: 2px;
+      margin-top: 12px;
+      display: block;
+    }
+
+    .hdr-rule {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .hr-line {
+      width: 88px;
+      height: 1px;
+    }
+    .hr-l { background: linear-gradient(270deg, rgba(232,21,53,0.65), transparent); }
+    .hr-r { background: linear-gradient(90deg, rgba(232,21,53,0.65), transparent); }
+
+    /* ── PRODUCTS AREA ───────────────────────────── */
+    .products {
+      padding: 0 44px;
+      margin-top: 4px;
+    }
+
+    .sec-label {
+      text-align: center;
+      font-family: 'source-sans-3', sans-serif;
+      font-size: 8.5px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.20);
+      margin-bottom: 16px;
+    }
+
+    /* Product card */
+    .card {
+      display: flex;
+      align-items: stretch;
+      height: 150px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.085);
+      background: rgba(255,255,255,0.042);
+      margin-bottom: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Featured card */
+    .card.hot {
+      background: rgba(232,21,53,0.115);
+      border-color: rgba(232,21,53,0.28);
+    }
+
+    /* Right-side accent stripe */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 4px; height: 100%;
+      background: linear-gradient(180deg, #E81535 0%, #FF6B8A 100%);
+      border-radius: 0 18px 18px 0;
+    }
+
+    .card.hot::before {
+      width: 5px;
+    }
+
+    /* In RTL: DOM order → visual right-to-left */
+    /* c-info (first) = rightmost, c-cup (second) = center, c-price (last) = leftmost */
+
+    .c-info {
+      flex: 1;
+      padding: 20px 26px 20px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .c-badge {
+      display: inline-block;
+      background: rgba(232,21,53,0.24);
+      border: 1px solid rgba(232,21,53,0.3);
+      color: #FF8099;
+      font-family: 'source-sans-3', sans-serif;
+      font-size: 7.5px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: 2px 10px;
+      border-radius: 6px;
+      margin-bottom: 9px;
+      width: fit-content;
+    }
+
+    .c-name-ar {
+      font-size: 30px;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1;
+    }
+
+    .c-name-en {
+      font-family: 'source-sans-3', sans-serif;
+      font-size: 9.5px;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+      margin-top: 4px;
+      direction: ltr;
+    }
+
+    .c-cal {
+      font-size: 10px;
+      color: rgba(255,255,255,0.26);
+      margin-top: 13px;
+    }
+
+    /* Cup illustration area */
+    .c-cup {
+      width: 112px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Price column (leftmost in RTL) */
+    .c-price {
+      width: 90px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-right: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .p-num {
+      font-family: 'source-serif-4', serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1;
+    }
+
+    .p-cur {
+      font-size: 11px;
+      color: rgba(255,255,255,0.33);
+      margin-top: 3px;
+      letter-spacing: 1px;
+    }
+
+    /* ── EXTRAS ──────────────────────────────────── */
+    .extras {
+      padding: 14px 44px 0;
+    }
+
+    .extras-label {
+      text-align: center;
+      font-family: 'source-sans-3', sans-serif;
+      font-size: 8.5px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.20);
+      margin-bottom: 13px;
+    }
+
+    .extras-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .extra {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255,255,255,0.028);
+      border: 1px solid rgba(255,255,255,0.065);
+      border-radius: 11px;
+      padding: 11px 18px;
+    }
+
+    .e-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.60);
+    }
+
+    .e-price {
+      font-family: 'source-serif-4', serif;
+      font-size: 17px;
+      font-weight: 600;
+      color: #FF8099;
+    }
+
+    /* ── DIVIDER before footer ────────────────────── */
+    .pre-footer {
+      position: absolute;
+      bottom: 90px; left: 44px; right: 44px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    }
+
+    /* ── FOOTER ──────────────────────────────────── */
+    .footer {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 90px;
+      background: rgba(0,0,0,0.30);
+      border-top: 1px solid rgba(255,255,255,0.065);
+      padding: 0 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .allergen {
+      font-size: 9.5px;
+      color: rgba(255,255,255,0.24);
+      line-height: 1.85;
+    }
+
+    .allergen b {
+      color: rgba(255,255,255,0.38);
+      font-weight: 600;
+    }
+
+    .allergen .en-line {
+      direction: ltr;
+      display: block;
+      text-align: left;
+    }
+
+    .qr-box {
+      flex-shrink: 0;
+      width: 58px; height: 58px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.04);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+<div class="menu" data-canvas-width="794" data-canvas-height="1123">
+
+  <!-- ── HEADER ─────────────────────────────────── -->
+  <div class="hdr">
+    <div class="hdr-pill">
+      <div class="pill-dot"></div>
+      Fresh Strawberry Cups
+      <div class="pill-dot"></div>
+    </div>
+    <span class="brand">Berry<span class="brand-red">Me</span></span>
+    <span class="brand-sub">أكواب الفراولة الطازجة</span>
+    <div class="hdr-rule">
+      <div class="hr-line hr-r"></div>
+      <!-- Strawberry icon -->
+      <svg width="20" height="22" viewBox="0 0 20 22" fill="none">
+        <path d="M10 4C10 4 4 8.5 4 13.5C4 16.8 6.7 19.5 10 19.5C13.3 19.5 16 16.8 16 13.5C16 8.5 10 4 10 4Z" fill="#E81535"/>
+        <path d="M9.5 4C9.5 4 7.5 2 5.5 2.8L8 5" stroke="#2D8040" stroke-width="1.3" stroke-linecap="round"/>
+        <path d="M10 4C10 4 10 2 12.5 2.5L11.5 4.5" stroke="#2D8040" stroke-width="1.3" stroke-linecap="round"/>
+        <circle cx="8" cy="13" r="1.2" fill="#FF8099" opacity="0.5"/>
+        <circle cx="10.5" cy="10.5" r="1.2" fill="#FF8099" opacity="0.5"/>
+        <circle cx="12.5" cy="13.5" r="1.2" fill="#FF8099" opacity="0.5"/>
+        <circle cx="8.5" cy="16.5" r="1.2" fill="#FF8099" opacity="0.5"/>
+        <circle cx="11.5" cy="16" r="1" fill="#FF8099" opacity="0.4"/>
+      </svg>
+      <div class="hr-line hr-l"></div>
+    </div>
+  </div>
+
+  <!-- ── PRODUCTS ───────────────────────────────── -->
+  <div class="products">
+    <div class="sec-label">Signature Collection · كولكشن سجنتشر</div>
+
+    <!-- ── Card 1: Signature ────────────────────── -->
+    <div class="card hot">
+      <div class="c-info">
+        <div class="c-badge">الأكثر طلباً · Best Seller</div>
+        <div class="c-name-ar">سجنتشر</div>
+        <div class="c-name-en">Signature</div>
+        <div class="c-cal">٥٨٠ سعرة حرارية</div>
+      </div>
+
+      <div class="c-cup">
+        <svg width="84" height="106" viewBox="0 0 84 106" fill="none">
+          <defs>
+            <clipPath id="cp1">
+              <path d="M16 21 L12 87 Q12 93 18 93 L66 93 Q72 93 72 87 L68 21Z"/>
+            </clipPath>
+            <linearGradient id="fill1" x1="42" y1="40" x2="42" y2="93" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#FF3355"/>
+              <stop offset="100%" stop-color="#AA0F28"/>
+            </linearGradient>
+          </defs>
+          <!-- Cup shell -->
+          <path d="M16 21 L12 87 Q12 93 18 93 L66 93 Q72 93 72 87 L68 21Z"
+                fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.18)" stroke-width="1.2"/>
+          <!-- Strawberry filling -->
+          <rect x="12" y="40" width="60" height="53" clip-path="url(#cp1)" fill="url(#fill1)"/>
+          <!-- Filling surface highlight -->
+          <ellipse cx="42" cy="40" rx="27" ry="3.5" fill="#FF5570" clip-path="url(#cp1)"/>
+          <!-- Strawberry piece A -->
+          <path d="M24 53 C24 53 20 46 27 45 C34 44 35 54 29 56 C27 57 24 56 24 53Z" fill="#FF4466" clip-path="url(#cp1)"/>
+          <path d="M27 45 C27 45 25 42 27 40" stroke="#28732A" stroke-width="1.2" stroke-linecap="round" clip-path="url(#cp1)"/>
+          <circle cx="25" cy="50" r="0.9" fill="#FFB8C8" clip-path="url(#cp1)"/>
+          <circle cx="28" cy="48" r="0.9" fill="#FFB8C8" clip-path="url(#cp1)"/>
+          <circle cx="31" cy="52" r="0.9" fill="#FFB8C8" clip-path="url(#cp1)"/>
+          <!-- Strawberry piece B (larger) -->
+          <path d="M40 48 C40 48 35 40 43 39 C51 38 52 49 46 52 C44 53 40 52 40 48Z" fill="#E81535" clip-path="url(#cp1)"/>
+          <path d="M43 39 C43 39 41 36 43 34" stroke="#28732A" stroke-width="1.3" stroke-linecap="round" clip-path="url(#cp1)"/>
+          <circle cx="40" cy="45" r="1" fill="#FF8899" clip-path="url(#cp1)"/>
+          <circle cx="44" cy="43" r="1" fill="#FF8899" clip-path="url(#cp1)"/>
+          <circle cx="47" cy="47" r="1" fill="#FF8899" clip-path="url(#cp1)"/>
+          <!-- Strawberry piece C -->
+          <path d="M57 55 C57 55 54 49 59 48 C64 47 65 55 61 57.5 C59 58 57 57 57 55Z" fill="#FF3355" clip-path="url(#cp1)"/>
+          <circle cx="58" cy="52" r="0.8" fill="#FFB8C8" clip-path="url(#cp1)"/>
+          <circle cx="61" cy="54" r="0.8" fill="#FFB8C8" clip-path="url(#cp1)"/>
+          <!-- Deeper berry chunks -->
+          <circle cx="32" cy="70" r="5.5" fill="#C01030" clip-path="url(#cp1)"/>
+          <circle cx="53" cy="73" r="6" fill="#B80F2A" clip-path="url(#cp1)"/>
+          <circle cx="42" cy="81" r="5" fill="#D01535" clip-path="url(#cp1)"/>
+          <!-- Cup rim -->
+          <rect x="13" y="19" width="58" height="5" rx="2.5"
+                fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+          <!-- Straw -->
+          <rect x="54" y="1" width="4.5" height="36" rx="2.25"
+                fill="rgba(255,255,255,0.26)" transform="rotate(-6 54 1)"/>
+          <rect x="55.5" y="1" width="1.5" height="36" rx="0.75"
+                fill="rgba(255,255,255,0.10)" transform="rotate(-6 54 1)"/>
+          <!-- Cup branding stripes -->
+          <line x1="15" y1="65" x2="13" y2="87" stroke="rgba(255,60,90,0.22)" stroke-width="3" clip-path="url(#cp1)"/>
+          <line x1="20" y1="65" x2="18" y2="87" stroke="rgba(255,60,90,0.22)" stroke-width="3" clip-path="url(#cp1)"/>
+        </svg>
+      </div>
+
+      <div class="c-price">
+        <div class="p-num">26</div>
+        <div class="p-cur">ر.س</div>
+      </div>
+    </div>
+
+    <!-- ── Card 2: Signature White ──────────────── -->
+    <div class="card">
+      <div class="c-info">
+        <div class="c-name-ar">سجنتشر وايت</div>
+        <div class="c-name-en">Signature White</div>
+        <div class="c-cal">٦٩٠ سعرة حرارية</div>
+      </div>
+
+      <div class="c-cup">
+        <svg width="84" height="106" viewBox="0 0 84 106" fill="none">
+          <defs>
+            <clipPath id="cp2">
+              <path d="M16 21 L12 87 Q12 93 18 93 L66 93 Q72 93 72 87 L68 21Z"/>
+            </clipPath>
+            <linearGradient id="fill2" x1="42" y1="60" x2="42" y2="93" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#E81535"/>
+              <stop offset="100%" stop-color="#AA0F28"/>
+            </linearGradient>
+            <linearGradient id="cream2" x1="42" y1="40" x2="42" y2="62" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#F8EEE5"/>
+              <stop offset="100%" stop-color="#EDDBC8"/>
+            </linearGradient>
+          </defs>
+          <!-- Cup shell -->
+          <path d="M16 21 L12 87 Q12 93 18 93 L66 93 Q72 93 72 87 L68 21Z"
+                fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.18)" stroke-width="1.2"/>
+          <!-- Strawberry base layer -->
+          <rect x="12" y="60" width="60" height="33" clip-path="url(#cp2)" fill="url(#fill2)"/>
+          <!-- Cream layer -->
+          <rect x="12" y="40" width="60" height="22" clip-path="url(#cp2)" fill="url(#cream2)"/>
+          <!-- Whipped cream swirl -->
+          <path d="M14 42 Q18 33 23 40 Q27 31 32 39 Q36 30 41 38 Q45 31 50 39 Q54 33 59 40 Q63 33 70 42"
+                fill="#FFFAF7" clip-path="url(#cp2)"/>
+          <path d="M18 40 Q22 32 26 39 Q30 31 34 38 Q38 30 42 37 Q46 31 50 38 Q54 33 58 40"
+                stroke="rgba(255,255,255,0.35)" stroke-width="0.8" fill="none" clip-path="url(#cp2)"/>
+          <!-- Strawberry piece on cream A -->
+          <path d="M22 47 C22 47 19 42 25 41 C31 40 32 48 27 50 C25 51 22 50 22 47Z" fill="#FF4466" clip-path="url(#cp2)"/>
+          <path d="M25 41 C25 41 23 38 25 37" stroke="#28732A" stroke-width="1" stroke-linecap="round" clip-path="url(#cp2)"/>
+          <circle cx="23" cy="45" r="0.8" fill="#FFD0DC" clip-path="url(#cp2)"/>
+          <circle cx="26" cy="43" r="0.8" fill="#FFD0DC" clip-path="url(#cp2)"/>
+          <!-- Strawberry piece on cream B -->
+          <path d="M39 45 C39 45 35 38 43 37 C51 36 52 46 46 48.5 C44 49.5 39 49 39 45Z" fill="#E81535" clip-path="url(#cp2)"/>
+          <path d="M43 37 C43 37 41 34 43 32" stroke="#28732A" stroke-width="1.1" stroke-linecap="round" clip-path="url(#cp2)"/>
+          <circle cx="39" cy="43" r="0.9" fill="#FFD0DC" clip-path="url(#cp2)"/>
+          <circle cx="43" cy="41" r="0.9" fill="#FFD0DC" clip-path="url(#cp2)"/>
+          <circle cx="46" cy="44" r="0.9" fill="#FFD0DC" clip-path="url(#cp2)"/>
+          <!-- Strawberry piece on cream C -->
+          <path d="M56 48.5 C56 48.5 53 43 58 42 C63 41 64 49 60 51 C58 52 56 51 56 48.5Z" fill="#FF3355" clip-path="url(#cp2)"/>
+          <circle cx="57" cy="46" r="0.7" fill="#FFD0DC" clip-path="url(#cp2)"/>
+          <!-- Cup rim -->
+          <rect x="13" y="19" width="58" height="5" rx="2.5"
+                fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+          <!-- Straw -->
+          <rect x="54" y="1" width="4.5" height="36" rx="2.25"
+                fill="rgba(255,255,255,0.26)" transform="rotate(-6 54 1)"/>
+          <rect x="55.5" y="1" width="1.5" height="36" rx="0.75"
+                fill="rgba(255,255,255,0.10)" transform="rotate(-6 54 1)"/>
+        </svg>
+      </div>
+
+      <div class="c-price">
+        <div class="p-num">29</div>
+        <div class="p-cur">ر.س</div>
+      </div>
+    </div>
+
+    <!-- ── Card 3: Signature Crunch ─────────────── -->
+    <div class="card">
+      <div class="c-info">
+        <div class="c-name-ar">سجنتشر كرنش</div>
+        <div class="c-name-en">Signature Crunch</div>
+        <div class="c-cal">٦٧٠ سعرة حرارية</div>
+      </div>
+
+      <div class="c-cup">
+        <svg width="84" height="106" viewBox="0 0 84 106" fill="none">
+          <defs>
+            <clipPath id="cp3">
+              <path d="M16 21 L12 87 Q12 93 18 93 L66 93 Q72 93 72 87 L68 21Z"/>
+            </clipPath>
+            <linearGradient id="fill3" x1="42" y1="42" x2="42" y2="93" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#FF3355"/>
+              <stop offset="100%" stop-color="#AA0F28"/>
+            </linearGradient>
+          </defs>
+          <!-- Cup shell -->
+          <path d="M16 21 L12 87 Q12 93 18 93 L66 93 Q72 93 72 87 L68 21Z"
+                fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.18)" stroke-width="1.2"/>
+          <!-- Strawberry base -->
+          <rect x="12" y="42" width="60" height="51" clip-path="url(#cp3)" fill="url(#fill3)"/>
+          <ellipse cx="42" cy="42" rx="27" ry="3.5" fill="#FF5570" clip-path="url(#cp3)"/>
+          <!-- Crunch bed -->
+          <rect x="12" y="36" width="60" height="10" clip-path="url(#cp3)" fill="#7A4C12"/>
+          <!-- Crunch pieces -->
+          <rect x="14" y="32" width="10" height="6" rx="2" fill="#C4822A" transform="rotate(-12 14 32)" clip-path="url(#cp3)"/>
+          <rect x="25" y="31" width="8" height="6" rx="2" fill="#D9952E" transform="rotate(7 25 31)" clip-path="url(#cp3)"/>
+          <rect x="36" y="30" width="11" height="6" rx="2" fill="#B87020" transform="rotate(-5 36 30)" clip-path="url(#cp3)"/>
+          <rect x="48" y="31" width="9" height="6" rx="2" fill="#C4822A" transform="rotate(9 48 31)" clip-path="url(#cp3)"/>
+          <rect x="59" y="32" width="9" height="6" rx="2" fill="#D9952E" transform="rotate(-10 59 32)" clip-path="url(#cp3)"/>
+          <!-- Pistachio pieces (green) -->
+          <ellipse cx="20" cy="33" rx="3.5" ry="2" fill="#5A8830" transform="rotate(-16 20 33)" clip-path="url(#cp3)"/>
+          <ellipse cx="43" cy="32" rx="4" ry="2.2" fill="#4A7828" transform="rotate(10 43 32)" clip-path="url(#cp3)"/>
+          <ellipse cx="65" cy="34" rx="3" ry="2" fill="#5A8830" transform="rotate(-7 65 34)" clip-path="url(#cp3)"/>
+          <!-- Chocolate drizzle -->
+          <path d="M22 40 C28 38 34 42 40 39 C46 36 52 41 58 38" stroke="#5C2A00" stroke-width="1.5" fill="none" stroke-linecap="round" clip-path="url(#cp3)"/>
+          <!-- Strawberry pieces under crunch -->
+          <path d="M24 54 C24 54 20 47 27 46 C34 45 35 55 29 57 C27 58 24 57 24 54Z" fill="#FF4466" clip-path="url(#cp3)"/>
+          <circle cx="25" cy="51" r="0.9" fill="#FFB8C8" clip-path="url(#cp3)"/>
+          <circle cx="28" cy="49" r="0.9" fill="#FFB8C8" clip-path="url(#cp3)"/>
+          <path d="M53 57 C53 57 49 50 56 49 C63 48 64 57 58 59.5 C56 60.5 53 60 53 57Z" fill="#E81535" clip-path="url(#cp3)"/>
+          <circle cx="54" cy="54" r="0.9" fill="#FFB8C8" clip-path="url(#cp3)"/>
+          <circle cx="57" cy="52" r="0.9" fill="#FFB8C8" clip-path="url(#cp3)"/>
+          <!-- Deep berry chunks -->
+          <circle cx="42" cy="72" r="6" fill="#C01030" clip-path="url(#cp3)"/>
+          <circle cx="30" cy="79" r="5.5" fill="#B80F2A" clip-path="url(#cp3)"/>
+          <!-- Cup rim -->
+          <rect x="13" y="19" width="58" height="5" rx="2.5"
+                fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+          <!-- Straw -->
+          <rect x="54" y="1" width="4.5" height="36" rx="2.25"
+                fill="rgba(255,255,255,0.26)" transform="rotate(-6 54 1)"/>
+          <rect x="55.5" y="1" width="1.5" height="36" rx="0.75"
+                fill="rgba(255,255,255,0.10)" transform="rotate(-6 54 1)"/>
+        </svg>
+      </div>
+
+      <div class="c-price">
+        <div class="p-num">33</div>
+        <div class="p-cur">ر.س</div>
+      </div>
+    </div>
+
+  </div><!-- /products -->
+
+  <!-- ── EXTRAS ─────────────────────────────────── -->
+  <div class="extras">
+    <div class="extras-label">Add-ons · الإضافات</div>
+    <div class="extras-grid">
+      <div class="extra">
+        <div class="e-name">قهوة اليوم</div>
+        <div class="e-price">12</div>
+      </div>
+      <div class="extra">
+        <div class="e-name">كريمة مخفوقة</div>
+        <div class="e-price">4</div>
+      </div>
+      <div class="extra">
+        <div class="e-name">شوكولاتة إضافية</div>
+        <div class="e-price">6</div>
+      </div>
+      <div class="extra">
+        <div class="e-name">ماء</div>
+        <div class="e-price">1</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pre-footer"></div>
+
+  <!-- ── FOOTER ─────────────────────────────────── -->
+  <div class="footer">
+    <div class="allergen">
+      <b>تحذير الحساسية:</b> دقيق القمح · فول الصويا · مكسرات (فستق حلبي) · الحليب
+      <span class="en-line">Allergens: Wheat Flour · Soy · Nuts (Pistachio) · Milk</span>
+    </div>
+    <div class="qr-box">
+      <svg width="40" height="40" viewBox="0 0 40 40">
+        <!-- Top-left square -->
+        <rect x="2" y="2" width="14" height="14" rx="1.5" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+        <rect x="5" y="5" width="8" height="8" fill="rgba(255,255,255,0.20)"/>
+        <!-- Top-right square -->
+        <rect x="24" y="2" width="14" height="14" rx="1.5" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+        <rect x="27" y="5" width="8" height="8" fill="rgba(255,255,255,0.20)"/>
+        <!-- Bottom-left square -->
+        <rect x="2" y="24" width="14" height="14" rx="1.5" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+        <rect x="5" y="27" width="8" height="8" fill="rgba(255,255,255,0.20)"/>
+        <!-- Dots (bottom-right area) -->
+        <rect x="24" y="19" width="5" height="5" rx="0.8" fill="rgba(255,255,255,0.14)"/>
+        <rect x="31" y="19" width="5" height="5" rx="0.8" fill="rgba(255,255,255,0.14)"/>
+        <rect x="24" y="26" width="5" height="5" rx="0.8" fill="rgba(255,255,255,0.14)"/>
+        <rect x="31" y="26" width="5" height="5" rx="0.8" fill="rgba(255,255,255,0.14)"/>
+        <rect x="24" y="33" width="5" height="5" rx="0.8" fill="rgba(255,255,255,0.14)"/>
+        <!-- Middle strip -->
+        <rect x="19" y="2" width="3" height="16" rx="1" fill="rgba(255,255,255,0.10)"/>
+        <rect x="2" y="19" width="16" height="3" rx="1" fill="rgba(255,255,255,0.10)"/>
+      </svg>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
