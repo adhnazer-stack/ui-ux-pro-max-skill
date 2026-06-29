@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>Berry Me – Menu</title>
+  <meta name="hz:slide-selector" content=".menu">
+  <meta name="hz:canvas-width"  content="794">
+  <meta name="hz:canvas-height" content="1123">
+
+  <!-- Adobe Fonts: Cairo + Source Serif 4 + Source Sans 3 -->
+  <link rel="stylesheet" href="https://use.typekit.net/roo4vnk.css">
+
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 24px;
+      background: #C0A8B0;
+      min-height: 100vh;
+    }
+
+    /* ─── ROOT CANVAS ─────────────────────────────── */
+    .menu {
+      position: relative;
+      width: 210mm;
+      height: 297mm;
+      background: #FBF4EF;
+      overflow: hidden;
+      box-shadow: 0 10px 50px rgba(0,0,0,0.35);
+    }
+
+    /* ─── HEADER  0 → 86mm ────────────────────────── */
+    .hdr {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 86mm;
+      background: linear-gradient(158deg, #580818 0%, #8A1028 42%, #B82038 75%, #C82848 100%);
+      overflow: hidden;
+    }
+
+    /* Circle ring decorations */
+    .hdr-r1 {
+      position: absolute;
+      width: 72mm; height: 72mm;
+      border-radius: 50%;
+      border: 0.5mm solid rgba(255,195,210,0.15);
+      top: -24mm; right: -18mm;
+    }
+    .hdr-r2 {
+      position: absolute;
+      width: 48mm; height: 48mm;
+      border-radius: 50%;
+      border: 0.4mm solid rgba(255,195,210,0.10);
+      top: -8mm; right: 14mm;
+    }
+    .hdr-r3 {
+      position: absolute;
+      width: 38mm; height: 38mm;
+      border-radius: 50%;
+      border: 0.4mm solid rgba(255,195,210,0.10);
+      bottom: 8mm; left: 4mm;
+    }
+    .hdr-r4 {
+      position: absolute;
+      width: 55mm; height: 55mm;
+      border-radius: 50%;
+      border: 0.3mm solid rgba(255,195,210,0.08);
+      bottom: -12mm; left: 28mm;
+    }
+
+    /* Strawberry side decorations */
+    .hdr-berry-l {
+      position: absolute;
+      left: 7mm; top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.28;
+    }
+    .hdr-berry-r {
+      position: absolute;
+      right: 7mm; top: 50%;
+      transform: translateY(-50%) scaleX(-1);
+      opacity: 0.28;
+    }
+
+    /* Brand content */
+    .hdr-brand {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 32mm;
+    }
+
+    .brand-name {
+      font-family: 'source-serif-4', serif;
+      font-size: 50pt;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 2px;
+      line-height: 0.85;
+      text-align: center;
+    }
+    .brand-sub {
+      font-family: 'source-serif-4', serif;
+      font-size: 13pt;
+      font-weight: 300;
+      color: rgba(255,185,200,0.85);
+      letter-spacing: 10px;
+      text-transform: uppercase;
+      text-align: center;
+      margin-top: 2.5mm;
+    }
+    .brand-rule {
+      width: 52mm;
+      height: 0.3mm;
+      background: linear-gradient(90deg, transparent, rgba(255,185,200,0.55), transparent);
+      margin: 4.5mm auto;
+    }
+    .brand-tag-ar {
+      font-family: 'cairo', sans-serif;
+      font-size: 12pt;
+      font-weight: 300;
+      color: rgba(255,185,200,0.82);
+      text-align: center;
+      letter-spacing: 1px;
+    }
+    .brand-tag-en {
+      font-family: 'source-sans-3', sans-serif;
+      font-size: 7.5pt;
+      font-weight: 400;
+      color: rgba(255,165,185,0.58);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-align: center;
+      margin-top: 2mm;
+    }
+
+    /* ─── WAVE TRANSITION  82→94mm ───────────────── */
+    .wave-wrap {
+      position: absolute;
+      top: 83mm; left: 0;
+      width: 210mm; height: 12mm;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    /* ─── SECTION TITLE  95mm ─────────────────────── */
+    .sec-title {
+      position: absolute;
+      top: 96mm; left: 10mm; right: 10mm;
+      display: flex;
+      align-items: center;
+      gap: 3mm;
+    }
+    .sec-line {
+      flex: 1; height: 0.3mm;
+      background: linear-gradient(90deg, transparent, rgba(200,40,72,0.5));
+    }
+    .sec-line.r {
+      background: linear-gradient(90deg, rgba(200,40,72,0.5), transparent);
+    }
+    .sec-label {
+      font-family: 'source-sans-3', sans-serif;
+      font-size: 7.5pt; font-weight: 400;
+      color: #C82848;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      white-space: nowrap;
+    }
+
+    /* ─── PRODUCT CARDS ──────────────────────────── */
+    .pcard {
+      position: absolute;
+      left: 10mm; right: 10mm;
+      height: 33mm;
+      background: #ffffff;
+      border-radius: 3mm;
+      border: 0.3mm solid #F0CCD4;
+      box-shadow: 0 0.8mm 3.5mm rgba(180,20,48,0.07);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      direction: rtl;
+      padding: 3.5mm 4mm;
+    }
+    .pc1 { top: 103mm; }
+    .pc2 { top: 139mm; }
+    .pc3 { top: 175mm; }
+
+    /* Cup illustration container */
+    .cup-wrap {
+      width: 25mm; height: 28mm;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* Product text */
+    .ptxt {
+      flex: 1;
+      padding: 0 3.5mm;
+      text-align: right;
+    }
+    .pbadge {
+      display: inline-block;
+      padding: 0.5mm 2mm;
+      background: rgba(200,40,72,0.07);
+      border: 0.2mm solid rgba(200,40,72,0.22);
+      border-radius: 1mm;
+      margin-bottom: 1mm;
+    }
+    .pbadge span {
+      font-family: 'source-sans-3', sans-serif;
+      font-size: 5.5pt; font-weight: 400;
+      color: #C82848;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+    .pname-ar {
+      font-family: 'cairo', sans-serif;
+      font-size: 16pt; font-weight: 700;
+      color: #180810;
+      line-height: 1;
+    }
+    .pname-en {
+      font-family: 'source-sans-3', sans-serif;
+      font-size: 7pt; font-weight: 400;
+      color: #90607080;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-top: 1mm;
+      color: #906070;
+    }
+    .pcal {
+      font-family: 'source-sans-3', sans-serif;
+      font-size: 6.5pt; font-weight: 400;
+      color: #B08090;
+      margin-top: 1.5mm;
+    }
+
+    /* Price badge */
+    .pprice {
+      flex-shrink: 0;
+      background: linear-gradient(148deg, #C82848, #8A1028);
+      border-radius: 2.5mm;
+      padding: 3mm 4.5mm;
+      text-align: center;
+      min-width: 16mm;
+    }
+    .pprice .curr {
+      font-family: 'source-sans-3', sans-serif;
+      font-size: 5.5pt; font-weight: 400;
+      color: rgba(255,190,205,0.75);
+      letter-spacing: 1px;
+      display: block;
+    }
+    .pprice .num {
+      font-family: 'source-serif-4', serif;
+      font-size: 20pt; font-weight: 700;
+      color: #ffffff;
+      display: block;
+      line-height: 1;
+      margin: 0.5mm 0;
+    }
+    .pprice .dec {
+      font-family: 'source-sans-3', sans-serif;
+      font-size: 6pt; font-weight: 400;
+      color: rgba(255,190,205,0.65);
+      display: block;
+    }
+
+    /* ─── EXTRAS SECTION  213mm ──────────────────── */
+    .extras {
+      position: absolute;
+      top: 213mm; left: 10mm; right: 10mm;
+    }
+    .ext-title {
+      display: flex; align-items: center; gap: 3mm;
+      margin-bottom: 3.5mm;
+    }
+    .ext-line {
+      flex: 1; height: 0.3mm;
+      background: linear-gradient(90deg, transparent, rgba(200,40,72,0.38));
+    }
+    .ext-line.r {
+      background: linear-gradient(90deg, rgba(200,40,72,0.38), transparent);
+    }
+    .ext-label {
+      font-family: 'source-sans-3', sans-serif;
+      font-size: 7.5pt; font-weight: 400;
+      color: #C82848;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      white-space: nowrap;
+    }
+    .ext-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2mm;
+    }
+    .ext-row {
+      background: #ffffff;
+      border: 0.3mm solid #F0CCD4;
+      border-radius: 2mm;
+      padding: 2.5mm 3.5mm;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      direction: rtl;
+    }
+    .ext-name-ar {
+      font-family: 'cairo', sans-serif;
+      font-size: 8.5pt; font-weight: 600;
+      color: #180810;
+    }
+    .ext-name-en {
+      font-family: 'source-sans-3', sans-serif;
+      font-size: 5.5pt; font-weight: 400;
+      color: #906070;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-top: 0.5mm;
+    }
+    .ext-p-wrap { text-align: center; }
+    .ext-p-curr {
+      font-family: 'source-sans-3', sans-serif;
+      font-size: 5.5pt;
+      color: #C82848;
+      display: block;
+      letter-spacing: 0.5px;
+    }
+    .ext-p-num {
+      font-family: 'source-serif-4', serif;
+      font-size: 13pt; font-weight: 700;
+      color: #C82848;
+      line-height: 1;
+    }
+
+    /* ─── DECORATIVE DIVIDER  252mm ─────────────── */
+    .deco-div {
+      position: absolute;
+      top: 252mm; left: 10mm; right: 10mm;
+      height: 0.3mm;
+      background: linear-gradient(90deg, transparent, rgba(200,40,72,0.2), transparent);
+    }
+
+    /* ─── FOOTER  264→297mm ──────────────────────── */
+    .footer {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 30mm;
+      background: #1A0810;
+      padding: 5mm 10mm;
+      display: flex;
+      align-items: center;
+      gap: 5mm;
+      direction: rtl;
+    }
+    .allergen-wrap { flex: 1; text-align: right; }
+    .allergen-title {
+      font-family: 'cairo', sans-serif;
+      font-size: 7pt; font-weight: 600;
+      color: #F5B8C4;
+      margin-bottom: 1.5mm;
+    }
+    .allergen-ar {
+      font-family: 'cairo', sans-serif;
+      font-size: 6pt; font-weight: 300;
+      color: rgba(245,184,196,0.68);
+      line-height: 1.65;
+    }
+    .allergen-en {
+      font-family: 'source-sans-3', sans-serif;
+      font-size: 5pt; font-weight: 400;
+      color: rgba(245,184,196,0.42);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-top: 1mm;
+    }
+    .qr-box {
+      width: 19mm; height: 19mm;
+      background: #ffffff;
+      border-radius: 1.5mm;
+      flex-shrink: 0;
+      padding: 1mm;
+      display: flex; align-items: center; justify-content: center;
+    }
+  </style>
+</head>
+<body>
+<div class="menu" data-canvas-width="794" data-canvas-height="1123">
+
+  <!-- ═══════════════════════════════════════════
+       HEADER
+  ═══════════════════════════════════════════ -->
+  <div class="hdr">
+    <div class="hdr-r1"></div>
+    <div class="hdr-r2"></div>
+    <div class="hdr-r3"></div>
+    <div class="hdr-r4"></div>
+
+    <!-- Left strawberry cluster -->
+    <div class="hdr-berry-l">
+      <svg width="26mm" height="38mm" viewBox="0 0 98 143" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Large strawberry -->
+        <path d="M49 28 Q32 6 12 18 Q4 42 22 58 Q16 78 32 88 Q40 112 49 112 Q58 112 66 88 Q82 78 76 58 Q94 42 86 18 Q66 6 49 28Z" fill="#FF8FA4"/>
+        <ellipse cx="38" cy="58" rx="2.8" ry="4" fill="white" opacity="0.45" transform="rotate(-15 38 58)"/>
+        <ellipse cx="52" cy="50" rx="2.8" ry="4" fill="white" opacity="0.45"/>
+        <ellipse cx="65" cy="60" rx="2.8" ry="4" fill="white" opacity="0.45" transform="rotate(12 65 60)"/>
+        <ellipse cx="34" cy="75" rx="2.8" ry="4" fill="white" opacity="0.45" transform="rotate(-8 34 75)"/>
+        <ellipse cx="50" cy="72" rx="2.8" ry="4" fill="white" opacity="0.45"/>
+        <ellipse cx="65" cy="78" rx="2.8" ry="4" fill="white" opacity="0.45" transform="rotate(10 65 78)"/>
+        <ellipse cx="43" cy="92" rx="2.8" ry="4" fill="white" opacity="0.45" transform="rotate(-6 43 92)"/>
+        <path d="M49 28 Q44 14 36 18 Q41 10 49 16 Q57 10 62 18 Q54 14 49 28Z" fill="#2E7A1C"/>
+        <path d="M49 16 L49 2" stroke="#2E7A1C" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M42 12 Q36 4 38 8" stroke="#2E7A1C" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M56 12 Q62 4 60 8" stroke="#2E7A1C" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <!-- Small strawberry top-right -->
+        <path d="M80 20 Q72 8 62 16 Q58 28 68 36 Q64 46 72 50 Q76 60 80 60 Q84 60 88 50 Q96 46 92 36 Q102 28 98 16 Q88 8 80 20Z" fill="#FF8FA4" opacity="0.7" transform="scale(0.5) translate(60,80)"/>
+      </svg>
+    </div>
+
+    <!-- Right strawberry cluster (mirror) -->
+    <div class="hdr-berry-r">
+      <svg width="26mm" height="38mm" viewBox="0 0 98 143" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M49 28 Q32 6 12 18 Q4 42 22 58 Q16 78 32 88 Q40 112 49 112 Q58 112 66 88 Q82 78 76 58 Q94 42 86 18 Q66 6 49 28Z" fill="#FF8FA4"/>
+        <ellipse cx="38" cy="58" rx="2.8" ry="4" fill="white" opacity="0.45" transform="rotate(-15 38 58)"/>
+        <ellipse cx="52" cy="50" rx="2.8" ry="4" fill="white" opacity="0.45"/>
+        <ellipse cx="65" cy="60" rx="2.8" ry="4" fill="white" opacity="0.45" transform="rotate(12 65 60)"/>
+        <ellipse cx="34" cy="75" rx="2.8" ry="4" fill="white" opacity="0.45" transform="rotate(-8 34 75)"/>
+        <ellipse cx="50" cy="72" rx="2.8" ry="4" fill="white" opacity="0.45"/>
+        <ellipse cx="65" cy="78" rx="2.8" ry="4" fill="white" opacity="0.45" transform="rotate(10 65 78)"/>
+        <ellipse cx="43" cy="92" rx="2.8" ry="4" fill="white" opacity="0.45" transform="rotate(-6 43 92)"/>
+        <path d="M49 28 Q44 14 36 18 Q41 10 49 16 Q57 10 62 18 Q54 14 49 28Z" fill="#2E7A1C"/>
+        <path d="M49 16 L49 2" stroke="#2E7A1C" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <!-- Brand text -->
+    <div class="hdr-brand">
+      <div class="brand-name">Berry Me</div>
+      <div class="brand-sub">· Fresh ·</div>
+      <div class="brand-rule"></div>
+      <div class="brand-tag-ar">أكواب الفراولة الطازجة</div>
+      <div class="brand-tag-en">Premium Fresh Strawberry Cups</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       WAVE TRANSITION
+  ═══════════════════════════════════════════ -->
+  <div class="wave-wrap">
+    <svg width="210mm" height="12mm" viewBox="0 0 794 45" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0 Q200 45 397 22 Q594 0 794 28 L794 0 Z" fill="#B82038"/>
+      <path d="M0 18 Q200 45 397 32 Q594 18 794 36 L794 18 Z" fill="#FBF4EF"/>
+    </svg>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION TITLE
+  ═══════════════════════════════════════════ -->
+  <div class="sec-title">
+    <div class="sec-line"></div>
+    <span class="sec-label">قائمتنا · Our Menu</span>
+    <div class="sec-line r"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       PRODUCT 1 — SIGNATURE
+  ═══════════════════════════════════════════ -->
+  <div class="pcard pc1">
+
+    <!-- Cup illustration: plain strawberry cup -->
+    <div class="cup-wrap">
+      <svg width="24mm" height="27mm" viewBox="0 0 90 102" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Cup body -->
+        <path d="M17 34 L13 90 Q13 97 20 97 L70 97 Q77 97 77 90 L73 34 Z" fill="#FDEEF2"/>
+        <path d="M17 34 L13 90 Q13 97 20 97 L70 97 Q77 97 77 90 L73 34 Z" stroke="#EFC0CC" stroke-width="1.1" fill="none"/>
+        <!-- Strawberries -->
+        <ellipse cx="34" cy="56" rx="12" ry="11" fill="#DF2848"/>
+        <ellipse cx="54" cy="50" rx="11" ry="10" fill="#BF1830"/>
+        <ellipse cx="45" cy="67" rx="11" ry="10" fill="#D03040"/>
+        <ellipse cx="26" cy="68" rx="8.5" ry="7.5" fill="#AF1428"/>
+        <ellipse cx="62" cy="65" rx="9.5" ry="8.5" fill="#C82038"/>
+        <!-- Seeds -->
+        <ellipse cx="31" cy="54" rx="1.1" ry="1.5" fill="white" opacity="0.55" transform="rotate(-14 31 54)"/>
+        <ellipse cx="37" cy="59" rx="1.1" ry="1.5" fill="white" opacity="0.55"/>
+        <ellipse cx="51" cy="48" rx="1.1" ry="1.5" fill="white" opacity="0.55" transform="rotate(9 51 48)"/>
+        <ellipse cx="57" cy="53" rx="1.1" ry="1.5" fill="white" opacity="0.55"/>
+        <ellipse cx="43" cy="65" rx="1.1" ry="1.5" fill="white" opacity="0.55"/>
+        <ellipse cx="48" cy="70" rx="1.1" ry="1.5" fill="white" opacity="0.55" transform="rotate(-9 48 70)"/>
+        <!-- Leaves -->
+        <path d="M34 45 Q32 40 30 42 Q32 38 34 42 Q36 38 38 42 Q36 40 34 45Z" fill="#2C6C1A"/>
+        <path d="M54 40 Q52 35 50 37 Q52 33 54 37 Q56 33 58 37 Q56 35 54 40Z" fill="#2C6C1A"/>
+        <!-- Rim -->
+        <path d="M12 34 Q15 29 45 29 Q75 29 78 34 Z" fill="#FFE0E8"/>
+        <path d="M12 34 Q15 29 45 29 Q75 29 78 34" stroke="#EFC0CC" stroke-width="1" fill="none"/>
+        <!-- Brand on cup -->
+        <text x="45" y="89" font-family="Georgia,serif" font-size="6.2" text-anchor="middle" fill="#C82038" font-weight="700" font-style="italic">Berry Me</text>
+        <!-- Cup base shadow -->
+        <ellipse cx="45" cy="97" rx="30" ry="2.5" fill="rgba(180,20,48,0.09)"/>
+      </svg>
+    </div>
+
+    <div class="ptxt">
+      <div class="pbadge"><span>Signature</span></div>
+      <div class="pname-ar">سجنتشر</div>
+      <div class="pname-en">Signature</div>
+      <div class="pcal">580 كالوري · 580 CAL</div>
+    </div>
+
+    <div class="pprice">
+      <span class="curr">SAR</span>
+      <span class="num">26</span>
+      <span class="dec">.00</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       PRODUCT 2 — SIGNATURE WHITE (whipped cream)
+  ═══════════════════════════════════════════ -->
+  <div class="pcard pc2">
+
+    <div class="cup-wrap">
+      <svg width="24mm" height="27mm" viewBox="0 0 90 102" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Cup body -->
+        <path d="M17 34 L13 90 Q13 97 20 97 L70 97 Q77 97 77 90 L73 34 Z" fill="#FFF8FB"/>
+        <path d="M17 34 L13 90 Q13 97 20 97 L70 97 Q77 97 77 90 L73 34 Z" stroke="#EDD8E0" stroke-width="1.1" fill="none"/>
+        <!-- Strawberries (slightly lower, room for cream) -->
+        <ellipse cx="35" cy="65" rx="11" ry="9.5" fill="#DF2848"/>
+        <ellipse cx="54" cy="59" rx="10" ry="9" fill="#BF1830"/>
+        <ellipse cx="45" cy="75" rx="11" ry="9.5" fill="#D03040"/>
+        <ellipse cx="26" cy="72" rx="8" ry="7" fill="#AF1428"/>
+        <!-- Seeds -->
+        <ellipse cx="33" cy="63" rx="1.1" ry="1.5" fill="white" opacity="0.55" transform="rotate(-13 33 63)"/>
+        <ellipse cx="39" cy="68" rx="1.1" ry="1.5" fill="white" opacity="0.55"/>
+        <ellipse cx="52" cy="57" rx="1.1" ry="1.5" fill="white" opacity="0.55"/>
+        <ellipse cx="57" cy="62" rx="1.1" ry="1.5" fill="white" opacity="0.55"/>
+        <!-- Leaves peeking below cream -->
+        <path d="M35 55 Q33 50 31 52 Q33 48 35 52 Q37 48 39 52 Q37 50 35 55Z" fill="#2C6C1A"/>
+        <!-- Whipped cream -->
+        <path d="M18 46 Q26 36 38 33 Q45 30 52 33 Q64 36 72 46 Q68 42 55 40 Q45 38 35 40 Q22 42 18 46Z" fill="#ffffff"/>
+        <path d="M20 42 Q28 34 40 30 Q48 27 56 30 Q66 34 73 42" fill="#ffffff"/>
+        <!-- Cream peaks -->
+        <path d="M45 30 Q42 22 45 17 Q48 22 45 30Z" fill="#ffffff"/>
+        <path d="M38 33 Q35 25 38 20 Q41 25 38 33Z" fill="#ffffff" opacity="0.92"/>
+        <path d="M52 33 Q49 25 52 20 Q55 25 52 33Z" fill="#ffffff" opacity="0.92"/>
+        <path d="M31 38 Q29 31 32 27 Q34 32 31 38Z" fill="#ffffff" opacity="0.82"/>
+        <path d="M59 38 Q57 31 60 27 Q62 32 59 38Z" fill="#ffffff" opacity="0.82"/>
+        <!-- Cream highlight -->
+        <path d="M24 44 Q30 39 39 37 Q46 35 54 37 Q63 39 69 44" stroke="rgba(255,255,255,0.6)" stroke-width="0.5" fill="none"/>
+        <!-- Rim -->
+        <path d="M12 34 Q15 29 45 29 Q75 29 78 34 Z" fill="#FFF0F5"/>
+        <path d="M12 34 Q15 29 45 29 Q75 29 78 34" stroke="#EDD8E0" stroke-width="1" fill="none"/>
+        <text x="45" y="89" font-family="Georgia,serif" font-size="6.2" text-anchor="middle" fill="#C82038" font-weight="700" font-style="italic">Berry Me</text>
+        <ellipse cx="45" cy="97" rx="30" ry="2.5" fill="rgba(180,20,48,0.09)"/>
+      </svg>
+    </div>
+
+    <div class="ptxt">
+      <div class="pbadge"><span>Signature White</span></div>
+      <div class="pname-ar">سجنتشر وايت</div>
+      <div class="pname-en">Signature White</div>
+      <div class="pcal">690 كالوري · 690 CAL</div>
+    </div>
+
+    <div class="pprice">
+      <span class="curr">SAR</span>
+      <span class="num">29</span>
+      <span class="dec">.00</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       PRODUCT 3 — SIGNATURE CRUNCH (crumble topping)
+  ═══════════════════════════════════════════ -->
+  <div class="pcard pc3">
+
+    <div class="cup-wrap">
+      <svg width="24mm" height="27mm" viewBox="0 0 90 102" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Cup body -->
+        <path d="M17 34 L13 90 Q13 97 20 97 L70 97 Q77 97 77 90 L73 34 Z" fill="#FFF7F0"/>
+        <path d="M17 34 L13 90 Q13 97 20 97 L70 97 Q77 97 77 90 L73 34 Z" stroke="#E8C4A8" stroke-width="1.1" fill="none"/>
+        <!-- Strawberries inside -->
+        <ellipse cx="35" cy="65" rx="12" ry="10" fill="#DF2848"/>
+        <ellipse cx="55" cy="59" rx="11" ry="9.5" fill="#BF1830"/>
+        <ellipse cx="45" cy="75" rx="11" ry="9.5" fill="#D03040"/>
+        <ellipse cx="26" cy="72" rx="8.5" ry="7.5" fill="#AF1428"/>
+        <ellipse cx="63" cy="68" rx="9" ry="8" fill="#C82038"/>
+        <!-- Seeds -->
+        <ellipse cx="33" cy="63" rx="1.1" ry="1.5" fill="white" opacity="0.55"/>
+        <ellipse cx="38" cy="68" rx="1.1" ry="1.5" fill="white" opacity="0.55"/>
+        <ellipse cx="53" cy="57" rx="1.1" ry="1.5" fill="white" opacity="0.55"/>
+        <ellipse cx="58" cy="62" rx="1.1" ry="1.5" fill="white" opacity="0.55"/>
+        <!-- Leaves -->
+        <path d="M35 55 Q33 50 31 52 Q33 48 35 52 Q37 48 39 52 Q37 50 35 55Z" fill="#2C6C1A"/>
+        <path d="M55 49 Q53 44 51 46 Q53 42 55 46 Q57 42 59 46 Q57 44 55 49Z" fill="#2C6C1A"/>
+        <!-- Chocolate drizzle line -->
+        <path d="M18 43 Q28 39 42 41 Q55 43 67 40 Q73 38 77 42" stroke="#5A280A" stroke-width="1.4" fill="none" opacity="0.55"/>
+        <!-- Crunch pieces – layer 1 (bigger) -->
+        <rect x="18" y="38" width="7.5" height="5" rx="1.5" fill="#6A2E0A" transform="rotate(-13 18 38)"/>
+        <rect x="30" y="35" width="8.5" height="5" rx="1.5" fill="#844020" transform="rotate(6 30 35)"/>
+        <rect x="43" y="33" width="7.5" height="5" rx="1.5" fill="#6A2E0A" transform="rotate(-4 43 33)"/>
+        <rect x="55" y="34" width="8" height="5" rx="1.5" fill="#7A3818" transform="rotate(9 55 34)"/>
+        <rect x="66" y="38" width="7" height="5" rx="1.5" fill="#6A2E0A" transform="rotate(-10 66 38)"/>
+        <!-- Crunch pieces – layer 2 (scatter) -->
+        <rect x="24" y="46" width="5.5" height="4" rx="1" fill="#9A4E28" transform="rotate(16 24 46)"/>
+        <rect x="37" y="43" width="5.5" height="4" rx="1" fill="#7A3818" transform="rotate(-7 37 43)"/>
+        <rect x="49" y="41" width="6" height="4" rx="1" fill="#6A2E0A" transform="rotate(5 49 41)"/>
+        <rect x="61" y="44" width="5.5" height="4" rx="1" fill="#844020" transform="rotate(-12 61 44)"/>
+        <!-- Rim -->
+        <path d="M12 34 Q15 29 45 29 Q75 29 78 34 Z" fill="#FFE4D0"/>
+        <path d="M12 34 Q15 29 45 29 Q75 29 78 34" stroke="#E8C4A8" stroke-width="1" fill="none"/>
+        <text x="45" y="89" font-family="Georgia,serif" font-size="6.2" text-anchor="middle" fill="#C82038" font-weight="700" font-style="italic">Berry Me</text>
+        <ellipse cx="45" cy="97" rx="30" ry="2.5" fill="rgba(180,20,48,0.09)"/>
+      </svg>
+    </div>
+
+    <div class="ptxt">
+      <div class="pbadge"><span>Crunch</span></div>
+      <div class="pname-ar">سجنتشر كرنش</div>
+      <div class="pname-en">Signature Crunch</div>
+      <div class="pcal">670 كالوري · 670 CAL</div>
+    </div>
+
+    <div class="pprice">
+      <span class="curr">SAR</span>
+      <span class="num">33</span>
+      <span class="dec">.00</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       EXTRAS
+  ═══════════════════════════════════════════ -->
+  <div class="extras">
+    <div class="ext-title">
+      <div class="ext-line"></div>
+      <span class="ext-label">إضافات · Extras</span>
+      <div class="ext-line r"></div>
+    </div>
+
+    <div class="ext-grid">
+
+      <div class="ext-row">
+        <div>
+          <div class="ext-name-ar">قهوة اليوم</div>
+          <div class="ext-name-en">Coffee of the Day (Iced / Hot)</div>
+        </div>
+        <div class="ext-p-wrap">
+          <span class="ext-p-curr">SAR</span>
+          <span class="ext-p-num">12</span>
+        </div>
+      </div>
+
+      <div class="ext-row">
+        <div>
+          <div class="ext-name-ar">زيادة كريمة خفق</div>
+          <div class="ext-name-en">Extra Whipped Cream</div>
+        </div>
+        <div class="ext-p-wrap">
+          <span class="ext-p-curr">SAR</span>
+          <span class="ext-p-num">4</span>
+        </div>
+      </div>
+
+      <div class="ext-row">
+        <div>
+          <div class="ext-name-ar">زيادة شوكولاته</div>
+          <div class="ext-name-en">Extra Chocolate</div>
+        </div>
+        <div class="ext-p-wrap">
+          <span class="ext-p-curr">SAR</span>
+          <span class="ext-p-num">6</span>
+        </div>
+      </div>
+
+      <div class="ext-row">
+        <div>
+          <div class="ext-name-ar">مياه معدنية</div>
+          <div class="ext-name-en">Water</div>
+        </div>
+        <div class="ext-p-wrap">
+          <span class="ext-p-curr">SAR</span>
+          <span class="ext-p-num">1</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Thin decorative rule -->
+  <div class="deco-div"></div>
+
+  <!-- Small strawberry sprigs between extras and footer -->
+  <div style="position:absolute; top:255mm; left:0; right:0; display:flex; justify-content:center; align-items:center; gap:3mm;">
+    <svg width="8mm" height="6mm" viewBox="0 0 30 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 8 Q10 2 5 6 Q3 12 8 16 Q6 20 10 22 Q12 26 15 26 Q18 26 20 22 Q24 20 22 16 Q27 12 25 6 Q20 2 15 8Z" fill="#C82848" opacity="0.22" transform="scale(0.8)"/>
+    </svg>
+    <span style="font-family:'source-serif-4',serif; font-size:7pt; color:#C82848; opacity:0.35; letter-spacing:5px;">✦  ✦  ✦</span>
+    <svg width="8mm" height="6mm" viewBox="0 0 30 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 8 Q10 2 5 6 Q3 12 8 16 Q6 20 10 22 Q12 26 15 26 Q18 26 20 22 Q24 20 22 16 Q27 12 25 6 Q20 2 15 8Z" fill="#C82848" opacity="0.22" transform="scale(0.8)"/>
+    </svg>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <div class="footer">
+    <!-- QR code (decorative placeholder) -->
+    <div class="qr-box">
+      <svg width="17mm" height="17mm" viewBox="0 0 68 68" xmlns="http://www.w3.org/2000/svg">
+        <rect width="68" height="68" fill="white"/>
+        <!-- Finder top-left -->
+        <rect x="4"  y="4"  width="22" height="22" rx="2.5" fill="#1A0810"/>
+        <rect x="7"  y="7"  width="16" height="16" rx="1.5" fill="white"/>
+        <rect x="10" y="10" width="10" height="10" rx="1"   fill="#1A0810"/>
+        <!-- Finder top-right -->
+        <rect x="42" y="4"  width="22" height="22" rx="2.5" fill="#1A0810"/>
+        <rect x="45" y="7"  width="16" height="16" rx="1.5" fill="white"/>
+        <rect x="48" y="10" width="10" height="10" rx="1"   fill="#1A0810"/>
+        <!-- Finder bottom-left -->
+        <rect x="4"  y="42" width="22" height="22" rx="2.5" fill="#1A0810"/>
+        <rect x="7"  y="45" width="16" height="16" rx="1.5" fill="white"/>
+        <rect x="10" y="48" width="10" height="10" rx="1"   fill="#1A0810"/>
+        <!-- Data modules -->
+        <rect x="30" y="4"  width="4" height="4" fill="#1A0810"/>
+        <rect x="36" y="4"  width="4" height="4" fill="#1A0810"/>
+        <rect x="30" y="10" width="4" height="4" fill="#1A0810"/>
+        <rect x="36" y="16" width="4" height="4" fill="#1A0810"/>
+        <rect x="30" y="22" width="4" height="4" fill="#1A0810"/>
+        <rect x="4"  y="30" width="4" height="4" fill="#1A0810"/>
+        <rect x="10" y="30" width="4" height="4" fill="#1A0810"/>
+        <rect x="16" y="36" width="4" height="4" fill="#1A0810"/>
+        <rect x="30" y="30" width="4" height="4" fill="#1A0810"/>
+        <rect x="36" y="30" width="4" height="4" fill="#1A0810"/>
+        <rect x="42" y="30" width="4" height="4" fill="#1A0810"/>
+        <rect x="48" y="30" width="4" height="4" fill="#1A0810"/>
+        <rect x="54" y="30" width="4" height="4" fill="#1A0810"/>
+        <rect x="60" y="30" width="4" height="4" fill="#1A0810"/>
+        <rect x="30" y="36" width="4" height="4" fill="#1A0810"/>
+        <rect x="42" y="36" width="4" height="4" fill="#1A0810"/>
+        <rect x="54" y="36" width="4" height="4" fill="#1A0810"/>
+        <rect x="30" y="42" width="4" height="4" fill="#1A0810"/>
+        <rect x="36" y="42" width="4" height="4" fill="#1A0810"/>
+        <rect x="48" y="42" width="4" height="4" fill="#1A0810"/>
+        <rect x="60" y="42" width="4" height="4" fill="#1A0810"/>
+        <rect x="30" y="48" width="4" height="4" fill="#1A0810"/>
+        <rect x="42" y="48" width="4" height="4" fill="#1A0810"/>
+        <rect x="54" y="48" width="4" height="4" fill="#1A0810"/>
+        <rect x="30" y="54" width="4" height="4" fill="#1A0810"/>
+        <rect x="36" y="54" width="4" height="4" fill="#1A0810"/>
+        <rect x="48" y="54" width="4" height="4" fill="#1A0810"/>
+        <rect x="60" y="54" width="4" height="4" fill="#1A0810"/>
+        <rect x="30" y="60" width="4" height="4" fill="#1A0810"/>
+        <rect x="42" y="60" width="4" height="4" fill="#1A0810"/>
+        <rect x="54" y="60" width="4" height="4" fill="#1A0810"/>
+      </svg>
+    </div>
+
+    <div class="allergen-wrap">
+      <div class="allergen-title">المواد المسببة للحساسية</div>
+      <div class="allergen-ar">يحتوي على دقيق القمح، الصويا، المكسرات (الفستق) والحليب</div>
+      <div class="allergen-en">Allergens: Contains Wheat Flour, Soy, Nuts (Pistachio) and Milk</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
